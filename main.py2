@@ -1,0 +1,89 @@
+"""
+简单的 Kivy 测试应用
+功能：显示一个按钮，点击后显示"Hello, Android!"
+"""
+
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.label import Label
+from kivy.uix.button import Button
+from kivy.uix.textinput import TextInput
+from kivy.core.window import Window
+from kivy.core.text import LabelBase
+
+# 注册 Android 系统字体
+LabelBase.register(name='Roboto',
+                   fn_regular='/system/fonts/Roboto-Regular.ttf',
+                   fn_bold='/system/fonts/Roboto-Bold.ttf')
+
+# 设置窗口大小（仅在桌面版有效，手机上会自动全屏）
+Window.size = (400, 600)
+
+class TestApp(App):
+    def build(self):
+        # 创建主布局
+        layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
+
+        # 标题标签
+        title = Label(
+            text='Kivy 测试应用',
+            font_size='24sp',
+            size_hint=(1, 0.2),
+            color=(0.2, 0.6, 1, 1),
+            font_name='Roboto'  # 指定字体
+        )
+        layout.add_widget(title)
+
+        # 状态显示标签
+        self.status_label = Label(
+            text='点击按钮测试',
+            font_size='18sp',
+            size_hint=(1, 0.2),
+            font_name='Roboto'  # 指定字体
+        )
+        layout.add_widget(self.status_label)
+
+        # 输入框
+        self.text_input = TextInput(
+            text='你好，世界！',
+            multiline=False,
+            size_hint=(1, 0.15),
+            font_size='18sp',
+            font_name='Roboto'  # 指定字体
+        )
+        layout.add_widget(self.text_input)
+
+        # 测试按钮
+        test_button = Button(
+            text='点击我',
+            size_hint=(1, 0.15),
+            background_color=(0.2, 0.6, 1, 1),
+            font_size='20sp',
+            font_name='Roboto',  # 指定字体
+            color=(1, 1, 1, 1)  # 白色文字
+        )
+        test_button.bind(on_press=self.on_button_click)
+        layout.add_widget(test_button)
+
+        # 退出按钮
+        exit_button = Button(
+            text='退出',
+            size_hint=(1, 0.15),
+            background_color=(1, 0.3, 0.3, 1),
+            font_size='20sp',
+            font_name='Roboto',  # 指定字体
+            color=(1, 1, 1, 1)  # 白色文字
+        )
+        exit_button.bind(on_press=self.stop)
+        layout.add_widget(exit_button)
+
+        return layout
+
+    def on_button_click(self, instance):
+        """按钮点击事件"""
+        input_text = self.text_input.text
+        self.status_label.text = f'你输入的是: {input_text}'
+        self.status_label.color = (0, 1, 0, 1)  # 绿色
+
+if __name__ == '__main__':
+    TestApp().run()

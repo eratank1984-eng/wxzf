@@ -1,0 +1,33 @@
+[app]
+title = wxzf处理器
+package.name = wxpayprocessor
+package.domain = org.example
+source.dir = .
+source.include_exts = py,png,jpg,kv,atlas,xls,xlsx
+version = 0.1
+requirements = python3,kivy==2.1.0,openpyxl==3.1.2,pyjnius
+orientation = portrait
+fullscreen = 0
+
+# Android权限
+android.permissions = READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
+
+# 使用绝对路径指定NDK（关键修改！）
+android.ndk_path = /home/wsl2/.buildozer/android/platform/android-ndk-r25c
+
+# SDK和ANT也使用绝对路径（确保它们正确）
+android.sdk_path = /home/wsl2/.buildozer/android/platform/android-sdk
+android.ant_path = /home/wsl2/.buildozer/android/platform/apache-ant-1.9.4
+
+# 注释掉版本号相关的行（避免冲突）
+# android.api = 33
+# android.minapi = 21
+# android.ndk = 25.1.8937393
+# android.sdk = 33
+
+# 添加PyPI镜像
+pypi_mirror = https://pypi.tuna.tsinghua.edu.cn/simple
+
+[buildozer]
+log_level = 2
+warn_on_root = 1

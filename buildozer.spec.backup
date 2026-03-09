@@ -1,0 +1,50 @@
+[app]
+title = wxzf处理器
+package.name = wxpayprocessor
+package.domain = org.example
+source.dir = .
+source.include_exts = py,png,jpg,kv,atlas,xls,xlsx
+version = 0.1
+requirements = python3,kivy==2.1.0,openpyxl==3.1.2,pyjnius
+orientation = portrait
+osx.python_version = 3
+osx.kivy_version = 2.1.0
+fullscreen = 0
+
+# Android权限
+android.permissions = READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
+android.api = 33
+android.minapi = 21
+android.ndk = 25.1.8937393
+android.sdk = 33
+
+# 添加NDK和SDK的镜像源（加速下载）
+android.ndk_url = https://mirrors.tuna.tsinghua.edu.cn/android/repository/android-ndk-r25c-linux.zip
+android.sdk_url = https://mirrors.tuna.tsinghua.edu.cn/android/sdk/
+
+# 添加PyPI镜像（加速Python包下载）
+pypi_mirror = https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 添加Android架构支持
+android.archs = arm64-v8a, armeabi-v7a
+
+# 确保可以访问外部存储
+android.extra_java_deps =
+android.gradle_dependencies =
+android.add_src =
+
+# Python-for-android特定配置
+p4a.branch = develop
+p4a.local_recipes =
+p4a.hooks =
+p4a.bootstraps =
+
+# 指定应用图标（可选）
+# icon = icon.png
+
+# 指定应用启动画面（可选）
+# presplash = splash.png
+
+[buildozer]
+log_level = 2
+warn_on_root = 1
