@@ -1,0 +1,54 @@
+name: Build APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            git \
+            zip \
+            unzip \
+            openjdk-17-jdk \
+            python3-pip \
+            autoconf \
+            libtool \
+            pkg-config \
+            cmake \
+            libffi-dev \
+            libssl-dev \
+            libncurses5-dev \
+            libncursesw5-dev \
+            zlib1g-dev \
+            libtinfo5
+          
+      - name: Install Python packages
+        run: |
+          pip install --upgrade pip
+          pip install cython==0.29.36 buildozer openpyxl
+          
+      - name: Build with buildozer
+        run: |
+          buildozer init
+          sed -i 's/requirements = python3,kivy/requirements = python3,openpyxl/' buildozer.spec
+          sed -i 's/source.include_exts = py,png,jpg,kv,atlas/source.include_exts = py/' buildozer.spec
+          sed -i 's/#android.permissions =/android.permissions = READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE/' buildozer.spec
+          buildozer android debug
+          
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: bin/*.apk
