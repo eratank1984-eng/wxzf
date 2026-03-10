@@ -1,4 +1,5 @@
 [app]
+packages_path = /home/wsl2/.buildozer/android/packages
 title = wxzf
 package.name = wxzf
 package.domain = org.test
@@ -18,8 +19,13 @@ p4a.local = /home/wsl2/project/wxzf/.buildozer/android/platform/python-for-andro
 p4a.skip_download = True
 p4a.branch = master
 p4a.ignore_branch = True
-
+p4a.url = git@github.com:kivy/python-for-android.git
 # 禁用不必要的功能
 android.accept_sdk_license = True
 android.ndk = 25b
 android.sdk = 31
+# 使用清华源镜像
+pypi_mirror = https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 使用镜像下载源码包
+p4a.source_mirror = https://mirrors.tuna.tsinghua.edu.cn/
